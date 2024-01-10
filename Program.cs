@@ -25,32 +25,54 @@ class Program {
 
      public static void Main(string[] args) {
           bool playing = true;
-
+          // Loops til player says to stop program.
           while (playing) {
                bool canStillPlay = true;
                Console.WriteLine("Let's play UNO!");
-               
 
+
+               // GET NUM OF PLAYERS               
                string stdinInput = string.Empty;
                int numOfPlayers = 0;
 
                while (numOfPlayers < 2 || numOfPlayers > 10) {
-                    Console.WriteLine("Type the number of people you would like to play with! (2-10)");
+                    Console.WriteLine("How many people are playing! (2-10)");
                     stdinInput = Console.ReadLine() ?? string.Empty;
                     numOfPlayers = (int.TryParse(stdinInput, out numOfPlayers)) ? numOfPlayers : 0;
                }
 
+               // HANDLE AND SET CARDS
+               CardLogic handleCards = new CardLogic();
+               List<UnoPlayer> currPlayers = handleCards.PassOut7Cards(numOfPlayers);
+               for(int i = 0; i < numOfPlayers; i++) {
+                    Console.WriteLine("Player " + i + " has " + currPlayers[i].Cards.Count + " cards.");
+               }
+               for(int i = 0; i < 7; i++) {
+                    Console.Write(currPlayers[0].Cards[i].Color + " " + currPlayers[0].Cards[i].Type + " | ");
+                    Console.Write(currPlayers[1].Cards[i].Color + " " + currPlayers[1].Cards[i].Type + " | ");
+                    Console.Write(currPlayers[2].Cards[i].Color + " " + currPlayers[2].Cards[i].Type + " | ");
+                    Console.WriteLine();
+               }
+  
 
 
-               // TODO: REMOVE BELOW
-               UnoPlayer player1 = new UnoPlayer(1);
-               player1.Cards.Add(new UnoCard("Red", 3));
-               player1.Cards.Add(new UnoCard("Blue", 5));
-               // Retrieve information later
-               int playerIndex = player1.PlayerIndex;
-               List<UnoCard> player1Cards = player1.Cards;
-               Console.WriteLine("Player " + playerIndex + " has " + player1Cards.Count + " cards.");
-               // TODO: REMOVE ABOVE
+
+
+
+
+               // // TODO: REMOVE BELOW
+               // UnoPlayer player1 = new UnoPlayer(0);
+               // player1.Cards.Add(new UnoCard("Red", "3"));
+               // player1.Cards.Add(new UnoCard("Blue", "5"));
+
+               // currPlayers.Add(player1);
+               // Console.WriteLine(currPlayers[0].Cards[0].Color);
+
+               // // Retrieve information later
+               // int playerIndex = player1.PlayerIndex;
+               // List<UnoCard> player1Cards = player1.Cards;
+               // Console.WriteLine("Player " + playerIndex + " has " + player1Cards.Count + " cards.");
+               // // TODO: REMOVE ABOVE
                 
 
 

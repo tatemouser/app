@@ -8,12 +8,3 @@ public class UnoPlayer {
     }
 }
 
-public class UnoCard {
-    public string Color { get; }
-    public int Number { get; }
-
-    public UnoCard(string color, int number) {
-        Color = color;
-        Number = number;
-    }
-}
