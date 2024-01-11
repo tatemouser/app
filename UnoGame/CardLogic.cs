@@ -82,7 +82,15 @@ public class CardLogic {
 
 
     public bool canPlay(UnoCard currCard, List<UnoCard> cards) {
-        return true;
+        foreach(UnoCard card in cards) {
+            if(card.Color == currCard.Color || 
+               card.Type == currCard.Type || 
+               card.Type == "Wild" || 
+               card.Type == "+4") {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

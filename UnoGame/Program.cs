@@ -63,14 +63,17 @@ class Program {
 
                     // if(playersTurn) ask and show player cards ect / else do robot turns and announce what they did
                     if(turnIndex != 0) {
-                         // Robot turn
+                         // Robot turn - Drop or Draw a card
                          if(handleCards.canPlay(currCard, currPlayers[turnIndex].Cards)) {
-                              // Play a card
+                              // TODO: ROBOT TURN- Decide logic for best move, simple or complex as possible
                          } else {
-                              // Draw a card
+                              cards.Add(currPlayers[turnIndex].Cards[0]);
+                              currPlayers[turnIndex].Cards.RemoveAt(0);
                          }
+
+
                     } else {
-                         // User turn
+                         // TODO: USER TURN
                     }
 
                     // Every player has >1 cards
