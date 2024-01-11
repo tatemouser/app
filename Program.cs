@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.Pipes;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 
 // Project Concept: UNO
 
@@ -17,7 +18,6 @@ class Program {
      public static bool checkCanStillPlay() {
           return true;
      }
-
 
 
 
@@ -44,49 +44,31 @@ class Program {
                // HANDLE AND SET CARDS
                CardLogic handleCards = new CardLogic();
                List<UnoPlayer> currPlayers = handleCards.PassOut7Cards(numOfPlayers);
-               for(int i = 0; i < numOfPlayers; i++) {
-                    Console.WriteLine("Player " + i + " has " + currPlayers[i].Cards.Count + " cards.");
-               }
-               for(int i = 0; i < 7; i++) {
-                    Console.Write(currPlayers[0].Cards[i].Color + " " + currPlayers[0].Cards[i].Type + " | ");
-                    Console.Write(currPlayers[1].Cards[i].Color + " " + currPlayers[1].Cards[i].Type + " | ");
-                    Console.Write(currPlayers[2].Cards[i].Color + " " + currPlayers[2].Cards[i].Type + " | ");
-                    Console.WriteLine();
-               }
-  
+               List<UnoCard> cards = handleCards.getDeck();
 
-
-
-
-
-
-               // // TODO: REMOVE BELOW
-               // UnoPlayer player1 = new UnoPlayer(0);
-               // player1.Cards.Add(new UnoCard("Red", "3"));
-               // player1.Cards.Add(new UnoCard("Blue", "5"));
-
-               // currPlayers.Add(player1);
-               // Console.WriteLine(currPlayers[0].Cards[0].Color);
-
-               // // Retrieve information later
-               // int playerIndex = player1.PlayerIndex;
-               // List<UnoCard> player1Cards = player1.Cards;
-               // Console.WriteLine("Player " + playerIndex + " has " + player1Cards.Count + " cards.");
-               // // TODO: REMOVE ABOVE
+               
                 
 
+               /**** Actual Game Loop ****/
 
-
-
-                /* Actual Game Loop */
-
-                // Player starts game as index 0
+                // Player is index 0 in currPlayers 
                int turnIndex = 0; 
-               // Decide who goes -> They play -> Check Game Status -> Next Player Goes
+               // Draw first card
+               UnoCard currCard = cards[0];
+               cards.RemoveAt(0);
+
+
+               // ORDER OF OP = Decide who goes -> They play -> Check Game Status -> Next Player Goes
                while (canStillPlay) {
+
                     // if(playersTurn) ask and show player cards ect / else do robot turns and announce what they did
                     if(turnIndex != 0) {
                          // Robot turn
+                         if(handleCards.canPlay(currCard, currPlayers[turnIndex].Cards)) {
+                              // Play a card
+                         } else {
+                              // Draw a card
+                         }
                     } else {
                          // User turn
                     }
@@ -98,7 +80,7 @@ class Program {
                }
 
 
-
+               Console.WriteLine((currPlayers[0].Cards.Count == 0) ? "You won!" : "You lost!");
 
 
 

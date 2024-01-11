@@ -5,31 +5,13 @@ public class CardLogic {
         cards = new List<UnoCard>();
     }
 
-
-
     private void setDeck(List<UnoCard> cards) {
         this.cards = cards;
     }
 
-    private List<UnoCard> getDeck() {
+    public List<UnoCard> getDeck() {
         return cards;
     }
-
-    /*
-     * Called only by instance of CardLogic class from Program.cs file 
-     */
-    private UnoCard getCard() {
-        // TODO: Test, reseting of cards
-        if(cards.Count == 0) {
-            List<UnoCard> cards = getNewDeck();
-            setDeck(cards);
-        }
-        UnoCard card = cards[0];
-        cards.RemoveAt(0);
-        return card;
-    }
-
-
 
 
 
@@ -41,9 +23,11 @@ public class CardLogic {
     private List<UnoCard> getNewDeck() {
         List<UnoCard> deck = new List<UnoCard>();
         string[] colors = { "Red", "Blue", "Green", "Yellow" };
-        string[] values = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        string[] values = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
         foreach (string color in colors) {
+            deck.Add(new UnoCard(color, "0"));
+
             foreach (string value in values) {
                 deck.Add(new UnoCard(color, value));
                 deck.Add(new UnoCard(color, value));
@@ -75,10 +59,6 @@ public class CardLogic {
         return deck;
     }
 
-
-
-
-
     /*
     * Takes remaining cards not dealt, assigns to public deck variable
     * @return players - list of players with 7 cards each
@@ -99,4 +79,11 @@ public class CardLogic {
         setDeck(cards);
         return players;
     }
+
+
+    public bool canPlay(UnoCard currCard, List<UnoCard> cards) {
+        return true;
+    }
 }
+
+
